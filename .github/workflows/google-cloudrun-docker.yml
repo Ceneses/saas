@@ -73,7 +73,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build --file myDockerfile -t ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.SERVICE }}:${{ env.VERSION }} .
+          docker build --file Dockerfile -t ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.SERVICE }}:${{ env.VERSION }} .
 
       - name: Push Docker image to Google Container Registry
         run: |
