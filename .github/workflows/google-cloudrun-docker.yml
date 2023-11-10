@@ -1,47 +1,17 @@
-# This workflow build and push a Docker container to Google Artifact Registry and deploy it on Cloud Run when a commit is pushed to the "main" branch
+# 谷歌云github-actions部署云端服务模板
 #
-# Overview:
+# 参数
+# 1. PROJECT_ID: Google Cloud project id
+# 2. SERVICE: Cloud Run service name
+# 3. GAR_LOCATION: Artifact Registry location
+# 4. ARIFACT_REPOSITORY: Artifact Registry repository name - which environment to deploy to
+# 5. REGION: Cloud Run Deploy service region
+# 6. VERSION: Cloud Run service version
+# 密文
+# 1. WIF_PROVIDER: Workload Identity Federation provider
+# 2. WIF_SERVICE_ACCOUNT: Workload Identity Federation service account
+# 3. SERVICE_ACCOUNT_KEY: Service account key file json content
 #
-# 1. Authenticate to Google Cloud
-# 2. Authenticate Docker to Artifact Registry
-# 3. Build a docker container
-# 4. Publish it to Google Artifact Registry
-# 5. Deploy it to Cloud Run
-#
-# To configure this workflow:
-#
-# 1. Ensure the required Google Cloud APIs are enabled:
-#
-#    Cloud Run            run.googleapis.com
-#    Artifact Registry    artifactregistry.googleapis.com
-#
-# 2. Create and configure Workload Identity Federation for GitHub (https://github.com/google-github-actions/auth#setting-up-workload-identity-federation)
-#
-# 3. Ensure the required IAM permissions are granted
-#
-#    Cloud Run
-#      roles/run.admin
-#      roles/iam.serviceAccountUser     (to act as the Cloud Run runtime service account)
-#
-#    Artifact Registry
-#      roles/artifactregistry.admin     (project or repository level)
-#
-#    NOTE: You should always follow the principle of least privilege when assigning IAM roles
-#
-# 4. Create GitHub secrets for WIF_PROVIDER and WIF_SERVICE_ACCOUNT
-#
-# 5. Change the values for the GAR_LOCATION, SERVICE and REGION environment variables (below).
-#
-# NOTE: To use Google Container Registry instead, replace ${{ env.GAR_LOCATION }}-docker.pkg.dev with gcr.io
-#
-# For more support on how to run this workflow, please visit https://github.com/marketplace/actions/deploy-to-cloud-run
-#
-# Further reading:
-#   Cloud Run IAM permissions                 - https://cloud.google.com/run/docs/deploying
-#   Artifact Registry IAM permissions         - https://cloud.google.com/artifact-registry/docs/access-control#roles
-#   Container Registry vs Artifact Registry   - https://cloud.google.com/blog/products/application-development/understanding-artifact-registry-vs-container-registry
-#   Principle of least privilege              - https://cloud.google.com/blog/products/identity-security/dont-get-pwned-practicing-the-principle-of-least-privilege
-
 name: Build and Deploy to Cloud Run
 
 on:
@@ -68,12 +38,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Google Auth
-        id: auth
-        uses: google-github-actions/auth@v1
+#      # [后端项目]Setup Java & Build with Maven
+#      - name: Set up JDK 11
+#        uses: actions/setup-java@v2
+#        with:
+#          java-version: '11'
+#          distribution: 'adopt'
+#
+#      - name: Build with Maven
+#        run: mvn clean install
+
+      # [前端项目]依赖安装 & 项目编译
+      - name:  Setup Node.js environment
+        uses: actions/setup-node@v3
         with:
-          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
-          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
 
       - name: Setup Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v0
