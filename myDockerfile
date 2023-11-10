@@ -2,7 +2,7 @@ FROM nginx:alpine
 
 WORKDIR /app
 
-COPY --from=0 /app/dist /usr/share/nginx/html
+COPY ./dist /usr/share/nginx/html
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 CMD ["sudo service nginx start"]
