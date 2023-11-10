@@ -8,9 +8,6 @@
 # 5. REGION: Cloud Run Deploy service region
 # 6. VERSION: Cloud Run service version
 # 密文
-# 1. WIF_PROVIDER: Workload Identity Federation provider
-# 2. WIF_SERVICE_ACCOUNT: Workload Identity Federation service account
-# 3. SERVICE_ACCOUNT_KEY: Service account key file json content
 #
 name: Build and Deploy to Cloud Run
 
