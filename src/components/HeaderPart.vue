@@ -100,11 +100,11 @@
           class="text-sm font-semibold leading-6 text-gray-900"
           >About</router-link
         >
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
-          >Marketplace</a
+        <router-link to="/market" class="text-sm font-semibold leading-6 text-gray-900"
+          >Marketplace</router-link
         >
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
-          >Company</a
+        <router-link to="/newsLetter" class="text-sm font-semibold leading-6 text-gray-900"
+          >NewsLetter</router-link
         >
       </PopoverGroup>
       <div class="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -165,27 +165,27 @@
                   >
                 </DisclosurePanel>
               </Disclosure>
-              <a
-                href="#"
+              <router-link
+                to="/features"
                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >Features</a
+                >Features</router-link
               >
               <a
                 href="#"
                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >Marketplace</a
               >
-              <a
-                href="#"
+              <router-link
+                to="/newsLetter"
                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >Company</a
+                >NewsLetter</router-link
               >
             </div>
             <div class="py-6">
-              <a
-                href="#"
+              <router-link
+                to="/login"
                 class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >Log in</a
+                >Log in</router-link
               >
             </div>
           </div>
